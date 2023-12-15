@@ -1,0 +1,534 @@
+arr=list(map(int,input().split(' ')))
+subsets=[]
+for i in range(pow(2,len(arr))):
+    b=bin(i)[2:]
+    b=[int(x) for x in b]
+    s=[]
+    k=len(arr)-1
+    for i in b[::-1]:
+        if i==1:
+            s.append(arr[k])
+        k-=1
+    subsets.append(s)
+ms=-float('inf')
+for i in subsets:
+    ms=max(ms,sum(i))
+answers=[]
+for i in subsets:
+    if sum(i)==ms:
+        answers.append(i)
+l=0
+ans=None
+for i in answers:
+    if len(i)>l:
+        ans=i
+        l=len(i)
+print(ans[::-1])
+print('completed')
+<br>
+<br>
+<br>
+<br>
+<br>
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter no of groups");
+        int n = scanner.nextInt();
+        System.out.println("Enter no of planes ");
+        int m = scanner.nextInt();
+        int[] a = new int[n];
+        int[] b = new int[m];
+        System.out.println("Enter the groups capacity");
+        for (int i = 0; i < n; i++) {
+            a[i] = scanner.nextInt();
+        }
+        System.out.println("Enter the planes capacity");
+        for (int j = 0; j < m; j++) {
+            b[j] = scanner.nextInt();
+        }
+
+        Arrays.sort(b);
+        reverse(b);
+        Arrays.sort(a);
+        reverse(a);
+
+        if (b[0] < a[0]) {
+            System.out.println("-1");
+        } else {
+            int i = 1;
+            int j = 1;
+            int time = 1;
+            int source = m - 1;
+            int destination = 1;
+            int maxTime = -1;
+
+            while (i < n) {
+                while (b[j] < a[i]) {
+                    i++;
+                    time += 2;
+
+                    if (time > maxTime) {
+                        maxTime = time;
+                    }
+                }
+                j++;
+                i++;
+                time = 1;
+
+                if (time > maxTime) {
+                    maxTime = time;
+                }
+
+                source--;
+                destination++;
+                // System.out.println(maxTime+"  "+time);
+                if (j == m && i != n) {
+                    if (source >= (n - i)) {
+                        maxTime++;
+                        break;
+                    } else {
+                        source = m;
+                        maxTime++;
+
+                        if (source >= (n - i)) {
+                            maxTime++;
+                            break;
+                        } else {
+                            int k = ((n - i) / source) + ((n - i) % source != 0 ? 1 : 0);
+                            maxTime += 2 * k - 1;
+                        }
+                    }
+                }
+            }
+
+            if (time > maxTime) {
+                maxTime = time;
+            }
+
+            System.out.println("Minimum time : " + maxTime);
+        }
+    }
+
+    private static void reverse(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n / 2; i++) {
+            int temp = arr[i];
+            arr[i] = arr[n - 1 - i];
+            arr[n - 1 - i] = temp;
+        }
+    }
+}	
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+def partition(array, low, high):
+    pivot = array[high]
+    i = low - 1
+
+    for j in range(low, high):
+        if array[j] <= pivot:
+            i = i + 1
+            (array[i], array[j]) = (array[j], array[i])
+
+    (array[i + 1], array[high]) = (array[high], array[i + 1])
+    return i + 1
+
+def quickSort(array, low, high):
+    if low < high:
+        pi = partition(array, low, high)
+        quickSort(array, low, pi - 1)
+        quickSort(array, pi + 1, high)
+
+# data = [8, 7, 2, 1, 0, 9, 6]
+data = list(map(int,input('Enter the array:').split()))
+print('Unsorted Array:', data)
+
+quickSort(data, 0, len(data) - 1)
+sorted_array = data
+print('Sorted Array:', sorted_array)
+
+# key = 1
+key = int(input('Enter the key : '))
+
+def find_smallest_greater_number(sorted_array, key):
+    smallest = key + 1
+    for num in sorted_array:
+        if num == smallest:
+            smallest += 1
+        elif num > smallest:
+            return smallest
+    return smallest
+
+result = find_smallest_greater_number(sorted_array, key)
+if key in sorted_array:
+  print(f"The smallest integer greater than {key} not present in the array is {result}.")
+else:
+  print('Key is not in array. Please input key which is in array.')
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+def conquer(arr,si,mid,ei):
+    a=[]
+    indx1=si
+    indx2=mid+1
+    while indx1<=mid and indx2<=ei:
+        if arr[indx1]<=arr[indx2]:
+            a.append(arr[indx1])
+            indx1+=1
+        else:
+            a.append(arr[indx2])
+            indx2+=1
+    while indx1<=mid:
+        a.append(arr[indx1])
+        indx1+=1
+    while indx2<=ei:
+        a.append(arr[indx2])
+        indx2+=1
+    j=si
+    for i in range(len(a)):
+        arr[j]=a[i]
+        j+=1
+
+def divide(nums,si,ei):
+    if si>=ei:
+        return
+    mid=(si+ei)//2
+    divide(nums,si,mid)
+    divide(nums,mid+1,ei)
+    conquer(nums,si,mid,ei)
+arr=list(map(int,input().split(' ')))
+divide(arr,0,len(arr)-1)
+print(arr)
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+marks=list(map(int,input('Enter student marks').split(' ')))
+bounds=list(map(int,input('Enter student bounds').split(' ')))
+cutoff=0
+mb=[]
+for i in range(len(marks)):
+    mb.append([marks[i],bounds[i]])
+mb.sort(key=lambda s:s[0])
+maxstudents=0
+for i in mb:
+    if i[0]>cutoff:
+        maxstudents+=1
+        cutoff+=i[1]
+print(maxstudents)
+<br>
+<br>
+<br>
+<br>
+<br>
+
+weights=list(map(int,input('Enter the weights :').split(' ')))
+profits=list(map(int,input('Enter the profits :').split(' ')))
+maxweight=int(input('Enter knapsack weight :'))
+k=[[0]*(maxweight+1) for i in range(len(weights)+1)]
+for i in range(len(profits)+1):
+    for w in range(maxweight+1):
+        if i==0 or w==0:
+            continue
+        elif weights[i-1]<=w:
+            k[i][w]=max(profits[i-1]+k[i-1][w-weights[i-1]],k[i-1][w])
+        else:
+            k[i][w]=k[i-1][w]
+print(k[len(profits)][maxweight])
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+# Python3 Program for Floyd Warshall Algorithm
+
+# Number of vertices in the graph
+V = 4
+
+# Define infinity as the large
+# enough value. This value will be
+# used for vertices not connected to each other
+INF = 99999
+
+# Solves all pair shortest path
+# via Floyd Warshall Algorithm
+
+
+def floydWarshall(graph):
+
+	dist = list(map(lambda i: list(map(lambda j: j, i)), graph))
+	for k in range(V):
+		for i in range(V):
+			for j in range(V):
+				dist[i][j] = min(dist[i][j],
+								dist[i][k] + dist[k][j]
+								)
+	print(dist)
+	print()
+	printSolution(dist)
+
+
+def printSolution(dist):
+	print("Following matrix shows the shortest distances\
+between every pair of vertices")
+	for i in range(V):
+		for j in range(V):
+			if(dist[i][j] == INF):
+				print( ("INF"), end=" ")
+			else:
+				print((dist[i][j]), end='   ')
+			if j == V-1:
+				print()
+
+
+if __name__ == "__main__":
+
+	graph = [[0, 5, INF, 10],
+			[INF, 0, 3, INF],
+			[INF, INF, 0, 1],
+			[INF, INF, INF, 0]
+			]
+
+	floydWarshall(graph)
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+def knapsack_greedy(values, weights, capacity):
+    # Calculate the value-to-weight ratio for each item
+    value_per_weight = [(v / w, v, w) for v, w in zip(values, weights)]
+    print(value_per_weight)
+
+    value_per_weight.sort(reverse=True)
+    print(value_per_weight)
+    total_value = 0
+    knapsack = []    # Items selected for the knapsack
+    c=0 
+    t=0.0
+    for ratio, value, weight in value_per_weight:
+        if c+weight <= capacity:
+            knapsack.append((value, weight))
+            t+= value
+            c+=weight
+            print(c)
+        else:
+            t+=(value/weight)*(capacity-c)
+            knapsack.append(((value/weight)*(capacity-c),capacity-c))
+            break
+          
+
+    return t, knapsack
+
+# Example usage
+# values = [60, 100, 120]
+# weights = [10, 20, 30]
+# capacity = 50
+
+values = [100,500,400,150]
+weights = [20,30,40,10]
+capacity = 75
+
+max_value, selected_items = knapsack_greedy(values, weights, capacity)
+
+print(f"Maximum value: {max_value}")
+print("Selected items:")
+for value, weight in selected_items:
+    print(f"Value: {value}, Weight: {weight}")
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+import heapq
+class Edge:
+    def __init__(self,weight,start_vertex,target_vertex):
+        self.weight=weight
+        self.start_vertex=start_vertex
+        self.target_vertex=target_vertex
+
+class Node:
+    def __init__(self,name):
+        self.name=name
+        self.visited=False
+        self.predecessor=None
+        #previous node that we come to this node
+        self.neighbours=[]
+        self.min_distance=float('inf')
+    def __lt__(self,other_node):
+        return self.min_distance<other_node.min_distance
+    def add_edge(self,weight,destination_vertex):
+        edge=Edge(weight,self,destination_vertex)
+        self.neighbours.append(edge)
+
+#Dijkstra Algorithm
+class Dijkstra:
+    def __init__(self):
+        self.heap=[]
+    def calculate(self,start_vertex):
+        start_vertex.min_distance=0
+        heapq.heappush(self.heap,start_vertex)
+        while self.heap:			
+            #pop element with the lowest distance
+            actual_vertex=heapq.heappop(self.heap)
+            if actual_vertex.visited:
+                continue
+            #consider the neighbors
+            for edge in actual_vertex.neighbours:
+                start=edge.start_vertex
+                target=edge.target_vertex
+                new_distance=start.min_distance+edge.weight
+                if new_distance<target.min_distance:
+                    target.min_distance=new_distance
+                    target.predecessor=start
+                    #update the heap
+                    heapq.heappush(self.heap,target)
+            actual_vertex.visited=True
+    def get_shortest_path(self,vertex):
+        print(f"The shortest path to the vertex is : {vertex.min_distance}")
+        actual_vertex=vertex
+        while actual_vertex is not None:
+            print(actual_vertex.name,end=" ")
+            actual_vertex=actual_vertex.predecessor
+
+
+
+
+nodeA=Node('A') 
+nodeB=Node('B')
+nodeC=Node('C')
+nodeD=Node('D')
+nodeE=Node('E')
+nodeF=Node('F')
+nodeG=Node('G')
+nodeH=Node('H')
+
+#STEP 2 create edge
+nodeA.add_edge(6,nodeB)
+nodeA.add_edge(10,nodeC)
+nodeA.add_edge(9,nodeD)
+nodeB.add_edge(5,nodeD)
+nodeB.add_edge(16,nodeE)
+nodeB.add_edge(13,nodeF)
+nodeC.add_edge(6,nodeD)
+nodeC.add_edge(5,nodeH)
+nodeC.add_edge(21,nodeG)
+nodeD.add_edge(8,nodeF)
+nodeD.add_edge(7,nodeH)
+nodeE.add_edge(10,nodeG)
+nodeF.add_edge(4,nodeE)
+nodeF.add_edge(12,nodeG)
+nodeH.add_edge(2,nodeF)
+nodeH.add_edge(14,nodeG)
+algorithm=Dijkstra()
+algorithm.calculate(nodeA)
+algorithm.get_shortest_path(nodeE)
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+def is_beautiful_number(num):
+    num_str = str(num)
+    n = len(num_str)
+    
+    if n % 2 != 0:
+        return False
+
+    half_n = n // 2
+    first_half = num_str[:half_n]
+    second_half = num_str[half_n:]
+
+    return sum(map(int, first_half)) == sum(map(int, second_half))
+
+def find_beautiful_numbers_in_interval(M, N):
+    beautiful_numbers = []
+
+    for num in range(M, N + 1):
+        if is_beautiful_number(num):
+            beautiful_numbers.append(num)
+
+    return beautiful_numbers
+
+
+M = 10
+N = 1000
+beautiful_numbers = find_beautiful_numbers_in_interval(M, N)
+print("Beautiful numbers in the interval from {} to {}: {}".format(M, N, beautiful_numbers))
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+def find_subset_with_sum(S, target_sum):
+    def backtrack(subset, current_sum, index):
+        if current_sum == target_sum:
+            result.append(subset[:])
+            return
+        if current_sum > target_sum or index == len(S):
+            return
+
+       
+        subset.append(S[index])
+        backtrack(subset, current_sum + S[index], index + 1)
+        subset.pop()
+
+        backtrack(subset, current_sum, index + 1)
+
+    result = []
+    backtrack([], 0, 0)
+    return result
+
+S = [1, 2, 5, 6, 8]
+target_sum = 9
+
+subsets = find_subset_with_sum(S, target_sum)
+if subsets:
+    print("Subsets with the sum of", target_sum, "are:")
+    for subset in subsets:
+        print(subset)
+else:
+    print("No solution found.")
+
+
+
+
+
+
+
+
+
+
+
+
+
